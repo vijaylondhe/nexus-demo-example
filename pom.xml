@@ -55,7 +55,34 @@
         <url>https://github.com/vijaylondhe/nexus-demo-example</url>
         <tag>@{project.version}</tag>
   </scm>
-
+	<profiles>
+		 <profile>
+				<id>releases</id>
+				<build>
+					 <plugins>
+							<plugin>
+								 <groupId>org.sonatype.plugins</groupId>
+								 <artifactId>nexus-staging-maven-plugin</artifactId>
+								 <version>1.5.1</version>
+								 <executions>
+										<execution>
+											 <id>default-deploy</id>
+											 <phase>deploy</phase>
+											 <goals>
+													<goal>deploy</goal>
+											 </goals>
+										</execution>
+								 </executions>
+								 <configuration>
+										<serverId>nexus</serverId>
+										<nexusUrl>http://13.234.204.23:8081/</nexusUrl>
+										<skipStaging>true</skipStaging>
+								 </configuration>
+							</plugin>
+					 </plugins>
+				</build>
+		 </profile>
+	</profiles>
   <build>
     <finalName>nexus-demo-example</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
@@ -91,17 +118,15 @@
         </plugin>
 				
 				<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>2.5.3</version>
-                <configuration>
-                    <goals>pre-integration-test</goals>
-                    <preparationGoals>package</preparationGoals>
-                    <allowTimestampedSnapshots>true</allowTimestampedSnapshots>
-                    <tagNameFormat>@{project.version}</tagNameFormat>
-                    <remoteTagging>false</remoteTagging>
-                </configuration>
-        </plugin>
+					 <groupId>org.apache.maven.plugins</groupId>
+					 <artifactId>maven-release-plugin</artifactId>
+					 <version>2.4.2</version>
+					 <configuration>
+							<tagNameFormat>v@{project.version}</tagNameFormat>
+							<autoVersionSubmodules>true</autoVersionSubmodules>
+							<releaseProfiles>releases</releaseProfiles>
+					 </configuration>
+				</plugin>
 
       </plugins>
     </pluginManagement>
