@@ -47,8 +47,14 @@
 	    <scope>provided</scope>
 	</dependency>
   </dependencies>
-
-  
+  		
+	<servers>		
+		<server>
+		  <id>nexus</id>
+			<username>admin</username>
+			<password>pass@123</password>
+		</server>
+  </servers>
   <scm>
         <connection>scm:git:git@github.com:vijaylondhe/nexus-demo-example.git</connection>
         <developerConnection>scm:git:git@github.com:vijaylondhe/nexus-demo-example.git</developerConnection>
